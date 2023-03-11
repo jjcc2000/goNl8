@@ -14,7 +14,7 @@ type Person struct{
 }
 
 func main(){
-	ej4()
+	ej5()
 }
 func ej1(){
 	//TODO://Marhsall a structure to a Json object
@@ -113,29 +113,44 @@ type Pperson struct {
 	Name string
 	Age  int
 }
+//This one does by Age (Int)
+type byAge []Pperson
 
+func (a byAge) Len() int           {return len(a) }
+func (a byAge) Swap(i, j int)      {a[i], a[j] = a[j], a[i] }
+func (a byAge) Less(i, j int) bool {return a[i].Age < a[j].Age}
+
+//This one does by Name (string)
+type byLast []Pperson
+
+func (a byLast) Len() int           { return len(a) }
+func (a byLast) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a byLast) Less(i, j int) bool { return a[i].Name < a[j].Name }
 
 func ej5(){
-	p1:= Person{
-		First: "Josue",
-		Last: "Chacon",
+	p1:= Pperson{
+		Name: "Josue",
 		Age: 23,
 	}
-	p2:= Person{
-		First: "Pedro",
-		Last: "Ramirez",
+	p2:= Pperson{
+		Name: "Pedro",
 		Age: 44,
 	}
-	p3:= Person{
-		First: "Julio",
-		Last: "Domingo",
+	p3:= Pperson{
+		Name: "Adrian",
 		Age: 55,
 	}
-	group :=[]Person{
+	group :=[]Pperson{
 		p1,p2,p3,
 	}
+	fmt.Println(group)
+	//Call the Method sort.Sort([]slice of the struct)
+	sort.Sort(byLast(group))
+	fmt.Println("Order by Name.")
+	fmt.Println(group)
+	//Call the Method sort.Sort([]slice of the struct)
+	sort.Sort(byAge(group))
+	fmt.Println("Order By Age")
+	fmt.Println(group)
 	
 }
-func (a Pperson) Len() int           { return len(a) }
-func (a Pperson) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func (a Pperson) Less(i, j int) bool { return a[i].Age < a[j].Age }
